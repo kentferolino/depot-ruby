@@ -23,7 +23,7 @@ class ProductTest < ActiveSupport::TestCase
       product.errors[:title]
 
     product.title = "This is a longer title"
-      assert product.valid?
+      assert product.valid?, "#{product.title} Product title shouldn't be invalid"
 
   end
 

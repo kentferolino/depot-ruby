@@ -18,7 +18,6 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create product" do
     assert_difference('Product.count') do
-      puts "test #{@product.title}"  
 
       post products_url, params: { 
         product: { 
