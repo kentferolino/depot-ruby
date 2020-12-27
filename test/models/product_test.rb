@@ -21,6 +21,10 @@ class ProductTest < ActiveSupport::TestCase
     assert product.invalid?, product.errors[:title]
     assert_equal ["is too short (minimum is 10 characters)"],
       product.errors[:title]
+
+    product.title = "This is a longer title"
+      assert product.valid?
+
   end
 
   test "product attributes must not be empty" do
