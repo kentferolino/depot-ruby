@@ -15,8 +15,27 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create line_item" do
-    assert_difference('LineItem.count') do
+  test "should create line_item for unique products" do
+    assert_difference('LineItem.count', 1) do
+      post line_items_url, params: { product_id: products(:ruby).id } 
+    end
+
+    assert_difference('LineItem.count', 0) do
+      post line_items_url, params: { product_id: products(:ruby).id } 
+    end
+
+    follow_redirect!
+
+    assert_select 'h2', 'Your Cart'
+    assert_select 'td', "Programming Ruby 1.9"
+  end
+
+  test "should not create line_item for duplicate products" do
+    assert_difference('LineItem.count', 1) do
+      post line_items_url, params: { product_id: products(:ruby).id } 
+    end
+
+    assert_difference('LineItem.count', 0) do
       post line_items_url, params: { product_id: products(:ruby).id } 
     end
 
