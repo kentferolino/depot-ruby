@@ -1,5 +1,17 @@
-let cart = document.getElementById("cart") 
+// Should just be 
+// let cart = document.getElementById("cart")
+// cart.innerHTML = "<%= j render(@cart) %>"
+// But is generating an error, 'cart' has already been declared
+
+if(cart) {
+  let cart = document.getElementById("cart") 
+}
 cart.innerHTML = "<%= j render(@cart) %>"
 
-let notice = document.getElementById("notice")
-if (notice) notice.style.display = "none"
+
+// START_HIGHLIGHT
+// I don't know why this is making an error. 
+// Uncaught SyntaxError: Identifier 'notice' has already been declared
+// let notice = document.getElementById("notice")
+// if (notice) notice.style.display = "none"
+// END_HIGHLIGHT
