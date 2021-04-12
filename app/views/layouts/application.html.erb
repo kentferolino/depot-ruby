@@ -18,6 +18,9 @@
     <section class="content">
       <nav class="side_nav"> 
         <p class="time"><%=  Time.new.to_s %> </p>
+        <div id="cart" class="carts">
+          <%= render @cart %>
+        </div>
         <ul>
           <li>
             <a href="/">Home</a>
