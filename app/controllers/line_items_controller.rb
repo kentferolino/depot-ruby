@@ -1,6 +1,6 @@
 class LineItemsController < ApplicationController
   include CurrentCart
-  before_action :set_cart, only: [:create]
+  before_action :set_cart, only: [:create, :reduce_quantity]
   before_action :set_line_item, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_line_item
 
@@ -44,25 +44,19 @@ class LineItemsController < ApplicationController
   end
 
   def reduce_quantity
-    # TODO: Do ajax request 
     @line_item = LineItem.find(params[:id])
-    # TODO: If line item quantity is less than 1, remove line item
     if @line_item.quantity > 1
       @line_item.quantity -= 1
-      # TODO: Do ajax response
       @line_item.save
-      redirect_to store_index_url
     else 
       @line_item.destroy
-      # TODO: Do ajax response
-      respond_to do |format|
-        format.html { redirect_to store_index_url }
-        format.json { head :no_content }
-      end
     end
 
-    
-    
+    respond_to do |format|
+      format.html { redirect_to store_index_url }
+      format.js
+      format.json { head :no_content }
+    end
   end
 
   # PATCH/PUT /line_items/1
