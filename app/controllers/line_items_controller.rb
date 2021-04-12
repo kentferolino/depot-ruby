@@ -43,6 +43,18 @@ class LineItemsController < ApplicationController
     end
   end
 
+  def reduce_quantity
+    @line_item = LineItem.find(params[:id])
+    # TODO: If line item quantity is less than 1, remove line item
+    if @line_item.quantity > 1
+      @line_item.quantity -= 1
+    end
+
+    # TODO: Do ajax request and response
+    @line_item.save
+    redirect_to store_index_url
+  end
+
   # PATCH/PUT /line_items/1
   # PATCH/PUT /line_items/1.json
   def update
@@ -62,7 +74,7 @@ class LineItemsController < ApplicationController
   def destroy
     @line_item.destroy
     respond_to do |format|
-      format.html { redirect_to @line_item.cart, notice: 'Item was successfully removed.' }
+      format.html { redirect_to store_index_url, notice: 'Item was successfully removed.' }
       format.json { head :no_content }
     end
   end

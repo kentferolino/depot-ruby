@@ -7,6 +7,10 @@
   <td><%= line_item.product.title %></td>
   <td class="price"><%= number_to_currency(line_item.total_price) %></td>
   <td>
-    <%= link_to '', line_item, method: :delete, data: { confirm: 'Are you sure?' }, class: "fa fa-trash delete-button"  %>
-  <%# <button class="btn"><i class="fa fa-trash"></i></button></td> %>
+    <%= link_to '', line_item_reduce_path(id: line_item), method: :post,
+      class: "fa fa-minus-circle delete-button" %>
+    <%= link_to '', line_item, method: :delete, 
+      data: { confirm: 'Are you sure?' }, class: "fa fa-trash delete-button"  %>
 </tr>
+
+
